@@ -39,7 +39,7 @@ public class Main {
         String in="holalalala";
         int id=0;
 		arbol.add(in,id);
-        System.out.println(arbol);
+		arbol.compacto();
         List<Hoja> r=arbol.substring("la");
 		for (Hoja hoja : r) {
 			System.out.println(hoja);

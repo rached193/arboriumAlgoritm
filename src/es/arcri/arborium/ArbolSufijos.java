@@ -29,5 +29,9 @@ public class ArbolSufijos {
 		return raiz.substring(v);
 	}
 
+	public void compacto() {
+		raiz.compacto();
+	}
+
     
 }

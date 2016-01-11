@@ -19,6 +19,8 @@ public class Node {
     private List<Hoja> hojas = new LinkedList<Hoja>();    
     private String value = "";
     
+	private static final Character COMODIN='*';
+	
     public void add(String v,int cont, int id){
            if(v.length()==0){//Es el ultimo
                 hojas.add(new Hoja(cont,id));
@@ -51,6 +53,16 @@ public class Node {
 			}
 			return false;
 		}else{
+			for (int i = 0; i < value.length() && v.length()!=0; i++) {
+				if (v.charAt(0)==COMODIN || v.charAt(0)==value.charAt(0)) {
+					v=v.substring(1);
+				}else{
+					return false;
+				}
+			}
+			if (v.length()==0) {
+				return true;
+			}
 			Character c=v.charAt(0);
 			if (hijos.containsKey(c)) {
 				return hijos.get(c).matching(v.substring(1));
@@ -67,8 +79,19 @@ public class Node {
 			}
 			return result;
 		}else{
+			for (int i = 0; i < value.length() && v.length()!=0; i++) {
+				if (v.charAt(0)==COMODIN || v.charAt(0)==value.charAt(0)) {
+					v=v.substring(1);
+				}else{
+					return new LinkedList<Hoja>();
+				}
+			}
+			if (v.length()==0) {
+				return hojas;
+			}
+
 			Character c=v.charAt(0);
-			if (c.equals('*')) {
+			if (c.equals(COMODIN)) {
 				List<Hoja>result=new LinkedList<Hoja>(hojas);
 				for (Node node : hijos.values()) {
 					result.addAll(node.substring(v.substring(1)));
