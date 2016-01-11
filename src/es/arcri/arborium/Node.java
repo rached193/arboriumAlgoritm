@@ -17,6 +17,7 @@ public class Node {
     
     private HashMap<Character, Node> hijos = new HashMap<Character, Node>();
     private List<Hoja> hojas = new LinkedList<Hoja>();    
+    private String value = "";
     
     public void add(String v,int cont, int id){
            if(v.length()==0){//Es el ultimo
@@ -28,6 +29,16 @@ public class Node {
                 hijos.put(v.charAt(0), new Node());
                 hijos.get(v.charAt(0)).add(v.substring(1), cont, id);           
             }
+        }
+    }
+    
+    public void compacto(){
+        if(hijos.size()==1){
+            value+=hijos.values().iterator().next().value;
+            hijos=hijos.values().iterator().next().hijos;
+        }
+        for(Node n: hijos.values()){
+            n.compacto();
         }
     }
     

@@ -36,7 +36,7 @@ public class Main {
 	
     public static void main(String[] args) {
     	ArbolSufijos arbol = new ArbolSufijos();
-        String in="halalalala";
+        String in="holalalala";
         int id=0;
 		arbol.add(in,id);
         System.out.println(arbol);
