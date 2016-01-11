@@ -13,11 +13,12 @@ import java.util.List;
  */
 public class ArbolSufijos {
 
-	private Node raiz=new Node();
+	private Node raiz=new Node(' ');
 	
 	public void add(String in,int id){
 		for (int i = 0; i < in.length(); i++) {
 			raiz.add(in.substring(i), i, id);
+                       System.out.println(in.substring(i));
 		}
 	}
 	
@@ -32,6 +33,10 @@ public class ArbolSufijos {
 	public void compacto() {
 		raiz.compacto();
 	}
+        
+        public String toString(){
+            return raiz.toString();
+        }
 
     
 }
