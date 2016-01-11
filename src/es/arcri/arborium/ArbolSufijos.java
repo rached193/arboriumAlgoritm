@@ -5,22 +5,29 @@
  */
 package es.arcri.arborium;
 
+import java.util.List;
+
 /**
  *
  * @author Aron
  */
 public class ArbolSufijos {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Node raiz = new Node();
-        raiz.add("hola", 0, 4);
-        raiz.add("ola", 0, 4);
-        raiz.add("la", 0, 4);
-        raiz.add("a", 0, 4);
-        System.out.println(raiz);
+	private Node raiz=new Node();
+	
+	public void add(String in,int id){
+		for (int i = 0; i < in.length(); i++) {
+			raiz.add(in.substring(i), i, id);
+		}
+	}
+	
+    public boolean matching(String v){
+    	return raiz.matching(v);
     }
+    
+	public List<Hoja> substring(String v){
+		return raiz.substring(v);
+	}
+
     
 }

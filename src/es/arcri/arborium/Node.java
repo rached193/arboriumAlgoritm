@@ -23,11 +23,53 @@ public class Node {
                 hojas.add(new Hoja(cont,id));
            }else{
                 if(hijos.containsKey(v.charAt(0))){
-                    hijos.get(v.charAt(0)).add(v.substring(1), cont+1, id);
+                    hijos.get(v.charAt(0)).add(v.substring(1), cont, id);
              }else{
                 hijos.put(v.charAt(0), new Node());
-                hijos.get(v.charAt(0)).add(v.substring(1), cont+1, id);           
+                hijos.get(v.charAt(0)).add(v.substring(1), cont, id);           
             }
         }
     }
+    
+    public boolean matching(String v){
+		if (v.length()==0) {
+			for (Hoja h : hojas) {
+				if (h.getPosition()==0) {
+					return true;
+				}
+			}
+			return false;
+		}else{
+			Character c=v.charAt(0);
+			if (hijos.containsKey(c)) {
+				return hijos.get(c).matching(v.substring(1));
+			}
+			return false;
+		}
+	}
+	
+	public List<Hoja> substring(String v){
+		if (v.length()==0) {
+			List<Hoja>result=new LinkedList<Hoja>(hojas);
+			for (Node node : hijos.values()) {
+				result.addAll(node.substring(v));
+			}
+			return result;
+		}else{
+			Character c=v.charAt(0);
+			if (c.equals('*')) {
+				List<Hoja>result=new LinkedList<Hoja>(hojas);
+				for (Node node : hijos.values()) {
+					result.addAll(node.substring(v.substring(1)));
+				}
+				return result;
+			}else{
+				if (hijos.containsKey(c)) {
+					return hijos.get(c).substring(v.substring(1));
+				}else{
+					return new LinkedList<Hoja>();
+				}
+			}
+		}
+	}
 }
