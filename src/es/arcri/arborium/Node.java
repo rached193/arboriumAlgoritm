@@ -39,9 +39,11 @@ public class Node {
     }
 
     public void compacto() {
-        if (hijos.size() == 1 && hojas.isEmpty() && (hijos.values().iterator().next().hojas.isEmpty() || hijos.values().iterator().next().hijos.isEmpty())) {
-            value += hijos.values().iterator().next().value;
-            hijos = hijos.values().iterator().next().hijos;
+        if (hijos.size() == 1 && hojas.isEmpty()){
+            Node aux = hijos.values().iterator().next();
+            value += aux.value;
+            hijos = aux.hijos;
+            hojas = aux.hojas;
             compacto();
         }
         for (Node n : hijos.values()) {
