@@ -21,6 +21,9 @@ public class Node {
 
     private static final Character COMODIN = '*';
     
+    public Node(){
+    }
+    
     public Node(char c){
         value=Character.toString(c);
     }
@@ -52,24 +55,25 @@ public class Node {
     }
 
     public boolean matching(String v) {
-        if (v.length() == 0) {
-            for (Hoja h : hojas) {
-                if (h.getPosition() == 0) {
-                    return true;
-                }
+    	int i=1;
+    	while( i < value.length() && v.length() != 0) {
+            if (v.charAt(0) == COMODIN || v.charAt(0) == value.charAt(i)) {
+                v = v.substring(1);
+            } else {
+                return false;
             }
+            i++;
+        }
+        if (v.length() == 0) {
+        	if (i==value.length()) {
+        		 for (Hoja h : hojas) {
+                     if (h.getPosition() == 0) {
+                         return true;
+                     }
+                 }
+			}
             return false;
         } else {
-            for (int i = 0; i < value.length() && v.length() != 0; i++) {
-                if (v.charAt(0) == COMODIN || v.charAt(0) == value.charAt(0)) {
-                    v = v.substring(1);
-                } else {
-                    return false;
-                }
-            }
-            if (v.length() == 0) {
-                return true;
-            }
             Character c = v.charAt(0);
             if (hijos.containsKey(c)) {
                 return hijos.get(c).matching(v.substring(1));
@@ -79,6 +83,13 @@ public class Node {
     }
 
     public List<Hoja> substring(String v) {
+    	for (int i = 1; i < value.length() && v.length() != 0; i++) {
+            if (v.charAt(0) == COMODIN || v.charAt(0) == value.charAt(i)) {
+                v = v.substring(1);
+            } else {
+                return new LinkedList<Hoja>();
+            }
+        }
         if (v.length() == 0) {
             List<Hoja> result = new LinkedList<Hoja>(hojas);
             for (Node node : hijos.values()) {
@@ -86,16 +97,6 @@ public class Node {
             }
             return result;
         } else {
-            for (int i = 0; i < value.length() && v.length() != 0; i++) {
-                if (v.charAt(0) == COMODIN || v.charAt(0) == value.charAt(0)) {
-                    v = v.substring(1);
-                } else {
-                    return new LinkedList<Hoja>();
-                }
-            }
-            if (v.length() == 0) {
-                return hojas;
-            }
 
             Character c = v.charAt(0);
             if (c.equals(COMODIN)) {
