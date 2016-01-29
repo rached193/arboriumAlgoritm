@@ -8,6 +8,7 @@ package es.arcri.arborium;
 /**
  *
  * @author Aron
+ * @author cristian
  */
 public class Hoja {
     private int docID;

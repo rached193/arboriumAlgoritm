@@ -12,6 +12,7 @@ import java.util.List;
 /**
  *
  * @author Aron
+ * @author cristian
  */
 public class Node {
 
@@ -54,31 +55,33 @@ public class Node {
         }
     }
 
-    public boolean matching(String v) {
+    public List<Hoja> matching(String v) {
     	int i=1;
     	while( i < value.length() && v.length() != 0) {
             if (v.charAt(0) == COMODIN || v.charAt(0) == value.charAt(i)) {
                 v = v.substring(1);
             } else {
-                return false;
+                return new LinkedList<Hoja>();
             }
             i++;
         }
         if (v.length() == 0) {
+    		LinkedList<Hoja> r=new LinkedList<Hoja>();
+
         	if (i==value.length()) {
         		 for (Hoja h : hojas) {
                      if (h.getPosition() == 0) {
-                         return true;
+                    	 r.add(h);
                      }
                  }
 			}
-            return false;
+            return r;
         } else {
             Character c = v.charAt(0);
             if (hijos.containsKey(c)) {
                 return hijos.get(c).matching(v.substring(1));
             }
-            return false;
+            return new LinkedList<Hoja>();
         }
     }
 
